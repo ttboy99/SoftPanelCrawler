@@ -1,0 +1,73 @@
+<!-- views/home.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Dynamic Page</title>
+  <link rel="stylesheet" href="static/style.css">
+  <script>// Function to fetch JSON data from a URL
+    function fetchData(url) {
+      return fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
+    }
+    
+    // Function to create divs based on JSON data
+    function createDivsFromJSON(jsonData) {
+      const container = document.getElementById('container');
+      
+      jsonData.forEach(item => {
+        const div = document.createElement("div");
+        div.setAttribute("id", item._id);
+        div.setAttribute("class", "agentWidget");
+        const name = document.createElement("p");
+        name.setAttribute("class", "name");
+        name.innerText = item._name;
+        div.appendChild(name);
+        const phone = document.createElement("p");
+        phone.setAttribute("class", "phone");
+        phone.innerText = item._phoneNumber;
+        div.appendChild(phone);
+        const time = document.createElement("p");
+        time.setAttribute("class", "time");
+        time.innerText = item._time;
+        div.appendChild(time);
+        container.appendChild(div);
+      });
+    }
+    
+    // URL of the JSON data
+    const jsonURL = 'http://OD570ED31D:3000/IT/get'; // Replace with your JSON URL
+    
+    // Fetch JSON data and create divs
+    fetchData(jsonURL)
+      .then(data => {
+        console.log(data);
+        createDivsFromJSON(data);
+      });
+      
+      async function update(){
+          const jsonData = await fetchData(jsonURL);
+          jsonData.forEach(item =>{
+            const element =  document.getElementById(item._id);
+            element.style.backgroundColor = item._color;
+            element.lastChild.innerText = item._time;
+          }) 
+        await new Promise(r => setTimeout(r, 1000));
+        update();
+      }
+        update();
+      </script>
+</head>
+<body>
+  <div id="container">
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+@font-face {
+    font-family: GCKlavika;
+    src: url(GC-Klavika-Bold.otf);
+  }
+  body{
+    font-family: GCKlavika;
+  }
+  #container{
+    display: flex;
+    flex-wrap: wrap;
+    height:100%;
+    width: 100%;
+    flex-direction: row;
+  }
+  .agentWidget{
+    border: 2px solid black;
+    flex: 0 0 20%; 
+    margin: 1em;
+    padding: 0.5ch;
+  }

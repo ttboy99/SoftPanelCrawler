@@ -1,0 +1,21 @@
+<!-- views/home.ejs -->
+<!DOCTYPE html>
+<html>
+  <script>
+    async function logMovies() {
+    const response = await fetch("http://localhost:3000/send");
+    console.log(response.text());
+    document.getElementById("demo").innerHTML = myText;
+  }   
+  fetch("http://localhost:3000/send").then(function(response){
+    console.log(response.text().then(text => {console.log(text);document.getElementById("demo").innerHTML = text}));
+  });
+  </script>
+<head>
+  <title>My Dynamic Page</title>
+</head>
+<body>
+  <h1>Welcome to my website, <%= username2 %>!</h1>
+  <p id="demo"></p>
+</body>
+</html>
